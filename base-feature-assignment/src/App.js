@@ -16,9 +16,9 @@ class App extends Component {
   userNameChangedHandler = (element,event) => {
     this.setState({
       users: [
-        {username:  element == 0? event.target.value : this.state.users[0].username},
-        {username: element == 1? event.target.value : this.state.users[1].username},
-        {username:  element == 2? event.target.value : this.state.users[2].username }
+        {username:  element === 0? event.target.value : this.state.users[0].username},
+        {username: element === 1? event.target.value : this.state.users[1].username},
+        {username:  element === 2? event.target.value : this.state.users[2].username }
       ]
     }
     );
