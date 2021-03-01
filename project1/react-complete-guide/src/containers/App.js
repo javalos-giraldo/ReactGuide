@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
-import './App.css';
-import Person from './Person/Person';
+import classes from './App.css';
+import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons'
+import Cockpit from '../components/Persons/Cockpit/Cockpit';
 
 
 // const App = props => {
@@ -44,6 +46,8 @@ class App extends Component {
      showPersons: false
   }
 
+  
+
   deletePersonHandler = (personIndex) => {
     //const persons = this.state.persons.slice();// gets you a copy of the array when no args
     const persons = [...this.state.persons];
@@ -82,67 +86,32 @@ class App extends Component {
 
     // Bind over setting up as a function
     render() {
-      //inline styles
-      const style= {
-        backgroundColor: 'green',
-        color: 'white',
-        font: 'inherit',
-        border: '1px solid blue',
-        padding: '8px',
-        cursor: 'pointer',
-        ':hover' : {
-          backGroundColor: 'lightgreen',
-          color: 'black'
-        }
-      }
 
       let persons = null;
+
 
       if(this.state.showPersons){
         persons = (
           <div>
-              {this.state.persons.map((person, index) => {
-                return(
-                  <Person
-                    name = {person.name}
-                    age = {person.age}
-                    click = {() => {this.deletePersonHandler(index)}}
-                    //Keys make it more efficient so that the DOM
-                    //recognizes which element to update
-                    key={person.id}
-                    changed={this.nameChangedHandler.bind(this,person.id)} />
-                    
-                );
-              })}
+
+            <Persons persons={this.state.persons} 
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />
+
           </div>
         );
-
-        style.backgroundColor = 'red';
-        style[':hover'] = {
-            backgroundColor: 'lightred',
-            color: 'black'
-        }
       }
 
-      const classes = [];
-      if(this.state.persons.length <= 2){
-        classes.push('red'); // classes = ['red']
-      }
-
-      if(this.state.persons.length <= 1){
-        classes.push('bold'); // classes = ['red','bold']
-      }
-
-
-
+      
 
       return (
-        <div className="App">
-          <h1>Hi, I'm a React App.</h1>
-          <p className={classes.join(' ')}> This is really working!</p>
-          <button className="button"
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-            {persons}
+        <div className={classes.App}>
+          <Cockpit 
+            title = {this.props.appTitle}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler}
+            showPersons={this.state.showPersons}/>
+          {persons}
         </div>
       )
     }

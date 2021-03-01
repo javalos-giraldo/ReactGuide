@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ValidationComponent from './components/ValidationComponent'
 import CharComponent from './components/CharComponent'
+import clasess from './test.module.css'
 import './App.css';
 
 class App extends Component{
@@ -28,7 +29,7 @@ class App extends Component{
   render() {
 
     let characters = (
-      <div>
+      <div >
       {this.state.textInput.split('').map((element,index) => {
         return(
           <CharComponent character={element} clicked={() => {this.deleteCharacterHandler(index)}}/>
@@ -39,10 +40,13 @@ class App extends Component{
 
     return (
       <div className="App">
-        <input type="text"  value={this.state.textInput} onChange={(event) => {this.updateTextHandler(event)}}/>
-        <p>The string "{this.state.textInput}" has a Length of {this.state.textInput.length} </p>
-        <ValidationComponent textLength={this.state.textInput.length}/>
-        {characters}
+        <div className={clasess.background}>
+          <input type="text"  value={this.state.textInput} onChange={(event) => {this.updateTextHandler(event)}}/>
+          <p>The string "{this.state.textInput}" has a Length of {this.state.textInput.length} </p>
+          <ValidationComponent textLength={this.state.textInput.length}/>
+          {characters}
+        </div>
+        
       </div>
     );
   }
